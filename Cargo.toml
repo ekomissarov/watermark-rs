@@ -1,0 +1,18 @@
+[package]
+name = "watermark-rs"
+version = "0.1.0"
+edition = "2021"
+description = "Document-aware public blind watermark (Rust port of watermark.py)"
+
+[dependencies]
+image = { version = "0.25.6", default-features = false, features = ["png", "jpeg"] }
+rustfft = "6"
+sha2 = "0.10"
+blake2 = "0.10"
+clap = { version = "4", features = ["derive"] }
+rayon = "1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
