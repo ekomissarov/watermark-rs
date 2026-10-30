@@ -1,8 +1,27 @@
 [package]
 name = "watermark-rs"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
-description = "Document-aware public blind watermark (Rust port of watermark.py)"
+description = "Document-aware public blind watermark (Rust port of watermark.py) with CLI and GUI"
+
+[lib]
+name = "watermark_rs"
+path = "src/lib.rs"
+
+# Console version: always built.
+[[bin]]
+name = "watermark-rs"
+path = "src/main.rs"
+
+# Desktop window: cargo build --release --features gui
+[[bin]]
+name = "watermark-gui"
+path = "src/bin/watermark-gui.rs"
+required-features = ["gui"]
+
+[features]
+default = []
+gui = ["dep:eframe", "dep:rfd"]
 
 [dependencies]
 image = { version = "0.25.6", default-features = false, features = ["png", "jpeg"] }
@@ -11,6 +30,8 @@ sha2 = "0.10"
 blake2 = "0.10"
 clap = { version = "4", features = ["derive"] }
 rayon = "1"
+eframe = { version = "0.31", optional = true }
+rfd = { version = "0.15", optional = true }
 
 [profile.release]
 opt-level = 3
